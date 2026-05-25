@@ -4,6 +4,7 @@ import (
 	"GarageSaleAPI/application/services"
 	"GarageSaleAPI/interfaces"
 	"GarageSaleAPI/interfaces/dto"
+	"GarageSaleAPI/interfaces/responses"
 	"encoding/json"
 	"log/slog"
 	"net/http"
@@ -45,9 +46,11 @@ func getUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	interfaces.Marshal(w, u)
+	response := responses.NewUserResponse(u)
+
+	interfaces.Marshal(w, response)
 
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
-	interfaces.Encode(w, u)
+	interfaces.Encode(w, response)
 }
