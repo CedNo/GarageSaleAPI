@@ -18,7 +18,6 @@ func TestInMemoryUserRepository_AddUser(t *testing.T) {
 
 	email, _ := mail.ParseAddress("email@email.com")
 	validUser := user.User{
-		Id:        1,
 		Username:  "username",
 		Password:  "password",
 		Email:     *email,
@@ -82,7 +81,6 @@ func TestInMemoryUserRepository_GetUserByUsername(t *testing.T) {
 
 	email, _ := mail.ParseAddress("email@email.com")
 	validUser := user.User{
-		Id:        1,
 		Username:  "username",
 		Password:  "password",
 		Email:     *email,

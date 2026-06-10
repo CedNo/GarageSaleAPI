@@ -42,9 +42,8 @@ func Test_addUser(t *testing.T) {
 					http.MethodPost,
 					"/user/add",
 					bytes.NewBufferString(`{
-						"Id":        123,
 						"Username":  "Edgouille",
-						"Password":  "MDP!@#",
+						"Password":  "MDP!@#111111111",
 						"Email":     "email@gmail.com"
 					}`),
 					"application/json",
@@ -60,9 +59,8 @@ func Test_addUser(t *testing.T) {
 					http.MethodPost,
 					"/user/add",
 					bytes.NewBufferString(`{
-						"Id":        123,
 						"Username":  "Edgouille",
-						"Password":  "MDP!@#",
+						"Password":  "MDP!@#111111111",
 						"Email":     "email@gmail.com"
 					}`),
 					"",
@@ -78,9 +76,8 @@ func Test_addUser(t *testing.T) {
 					http.MethodPost,
 					"/user/add",
 					bytes.NewBufferString(`{
-						"Id":        123,
 						"Username":  "Edgouille",
-						"Password":  "MDP!@#",
+						"Password":  "MDP!@#111111111",
 						"Email":     "email"
 					}`),
 					"application/json",
@@ -127,9 +124,8 @@ func Test_getUser(t *testing.T) {
 	creationTime := time.Now()
 
 	userToAdd := dto.UserDTO{
-		Id:       123,
 		Username: "Edgouille",
-		Password: "MDP!@#",
+		Password: "MDP!@#111111111",
 		Email:    "email@email.com",
 	}
 	e := services.AddUser(userToAdd)
