@@ -9,7 +9,6 @@ import (
 )
 
 func TestAddUser(t *testing.T) {
-	ctx := test.CreateTestContext(t)
 	s := server.NewAppServer()
 	type args struct {
 		userService *UserService
@@ -49,6 +48,7 @@ func TestAddUser(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			ctx := test.CreateTestContext(t)
 			t.Cleanup(func() {
 				s = server.NewAppServer()
 			})
@@ -64,7 +64,6 @@ func TestAddUser(t *testing.T) {
 }
 
 func TestGetUserByUsername(t *testing.T) {
-	ctx := test.CreateTestContext(t)
 	s := server.NewAppServer()
 	uDTO := requests.UserRequest{
 		Username: "username",
@@ -101,6 +100,7 @@ func TestGetUserByUsername(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			ctx := test.CreateTestContext(t)
 			t.Cleanup(func() {
 				s = server.NewAppServer()
 			})

@@ -80,7 +80,6 @@ func TestSaleService_AddSale(t *testing.T) {
 }
 
 func TestSaleService_GetSaleById(t *testing.T) {
-	ctx := test.CreateTestContext(t)
 	s := server.NewAppServer()
 	repo := *s.GetSaleRepository()
 	saleId := uuid.NewString()
@@ -116,6 +115,7 @@ func TestSaleService_GetSaleById(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			ctx := test.CreateTestContext(t)
 			_ = repo.Save(ctx, newSale)
 			got, err := tt.args.service.GetSaleById(ctx, tt.args.saleId)
 			if (err != nil) != tt.wantErr {
