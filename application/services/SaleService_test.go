@@ -5,6 +5,8 @@ import (
 	"GarageSaleAPI/domain/address"
 	"GarageSaleAPI/domain/sale"
 	"GarageSaleAPI/interfaces/requests"
+	"GarageSaleAPI/test"
+	"context"
 	"reflect"
 	"testing"
 	"time"
@@ -65,11 +67,12 @@ func TestSaleService_AddSale(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			ctx := test.CreateTestContext(t)
 			t.Cleanup(func() {
 				s = server.NewAppServer()
 			})
 
-			if _, err := tt.args.service.AddSale(tt.args.saleDTO); (err != nil) != tt.wantErr ||
+			if _, err := tt.args.service.AddSale(ctx, tt.args.saleDTO); (err != nil) != tt.wantErr ||
 				(err != nil) && err.Error() != tt.wantErrText {
 				t.Errorf("AddSale() error = %v, wantErr %v", err, tt.wantErr)
 			}
@@ -78,12 +81,14 @@ func TestSaleService_AddSale(t *testing.T) {
 }
 
 func TestSaleService_GetSaleById(t *testing.T) {
+	ctx := test.CreateTestContext(t)
 	s := server.NewAppServer()
 	repo := *s.GetSaleRepository()
 	saleId := uuid.NewString()
 	newSale := sale.CreateSale(saleId, "newSale", validAddress)
 
 	type args struct {
+		ctx     context.Context
 		service *SaleService
 		saleId  string
 	}
@@ -96,6 +101,7 @@ func TestSaleService_GetSaleById(t *testing.T) {
 		{
 			name: "Get sale by id",
 			args: args{
+				ctx:     test.CreateTestContext(t),
 				service: NewSaleService(repo),
 				saleId:  saleId,
 			},
@@ -105,6 +111,7 @@ func TestSaleService_GetSaleById(t *testing.T) {
 		{
 			name: "Get nonexistent sale by id",
 			args: args{
+				ctx:     test.CreateTestContext(t),
 				service: NewSaleService(repo),
 				saleId:  "123",
 			},
@@ -113,8 +120,8 @@ func TestSaleService_GetSaleById(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			_ = repo.AddSale(newSale)
-			got, err := tt.args.service.GetSaleById(tt.args.saleId)
+			_ = repo.Save(ctx, newSale)
+			got, err := tt.args.service.GetSaleById(tt.args.ctx, tt.args.saleId)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("GetSaleById() error = %v, wantErr %v", err, tt.wantErr)
 				return
