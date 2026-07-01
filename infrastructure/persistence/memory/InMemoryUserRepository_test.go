@@ -96,7 +96,7 @@ func TestInMemoryUserRepository_AddUser(t *testing.T) {
 			}
 
 			if len(repo.userList) != tt.wantLength {
-				t.Errorf("len(sellerList) = %d, want %d", len(repo.userList), tt.wantLength)
+				t.Errorf("len(userList) = %d, want %d", len(repo.userList), tt.wantLength)
 			}
 		})
 	}

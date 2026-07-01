@@ -107,7 +107,7 @@ func TestInMemorySaleRepository_AddSale(t *testing.T) {
 			}
 
 			if len(repo.saleList) != tt.wantLength {
-				t.Errorf("len(sellerList) = %d, want %d", len(repo.saleList), tt.wantLength)
+				t.Errorf("len(saleList) = %d, want %d", len(repo.saleList), tt.wantLength)
 			}
 		})
 	}
